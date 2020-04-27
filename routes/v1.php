@@ -26,3 +26,15 @@ use Illuminate\Http\Request;
 // Route::namespace('V1')->middleware('role.control')->group(function(){
 
 // });
+Route::get('hehe', function () {
+    return response()->json([
+        "message"=>'hehe',
+    ]);
+});
+
+
+Route::namespace('V1')->group(function () {
+    Route::get('stark', 'StarkController@stark');
+    Route::get('shudong', 'StarkController@shudong');
+
+});
