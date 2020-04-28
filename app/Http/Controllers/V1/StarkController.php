@@ -25,7 +25,6 @@ class StarkController extends Controller
     public function stark(){
         $data = 'hi stark';
 
-
         return $this->resOk($data);
     }
 

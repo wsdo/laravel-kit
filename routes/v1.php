@@ -36,5 +36,4 @@ Route::get('hehe', function () {
 Route::namespace('V1')->group(function () {
     Route::get('stark', 'StarkController@stark');
     Route::get('shudong', 'StarkController@shudong');
-
 });
