@@ -38,15 +38,20 @@ Route::group([
 
 });
 
-Route::post('login', 'V1\AuthController@login')->name('login');
+Route::get('login', 'V1\AuthController@login')->name('login');
+
 Route::get('hehe', function () {
     return response()->json([
         "message"=>'hehe',
     ]);
 });
 
-
-Route::namespace('V1')->group(function () {
+// 不需要token验证
+Route::namespace('V1')->middleware('next')->group(function () {
     Route::get('stark', 'StarkController@stark');
+});
+
+// 需要token验证
+Route::namespace('V1')->middleware('interceptor')->group(function () {
     Route::get('shudong', 'StarkController@shudong');
 });
