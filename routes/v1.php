@@ -26,6 +26,19 @@ use Illuminate\Http\Request;
 // Route::namespace('V1')->middleware('role.control')->group(function(){
 
 // });
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
+
+Route::post('login', 'V1\AuthController@login')->name('login');
 Route::get('hehe', function () {
     return response()->json([
         "message"=>'hehe',

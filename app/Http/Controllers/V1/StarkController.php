@@ -16,10 +16,10 @@ class StarkController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api', ['except' => ['create','shudong','stark']]);
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['create','shudong']]);
+    }
 
 
     public function stark(){
