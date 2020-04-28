@@ -30,14 +30,14 @@ class Interceptor extends BaseMiddleware
             if ($this->auth->parseToken()->authenticate()) {
                 return $next($request);
             }
-//            throw new UnauthorizedHttpException('jwt-auth', '未登录');
+            //throw new UnauthorizedHttpException('jwt-auth', '未登录');
             return response()->json([
                 'code' => 4011,
                 'data' => [],
                 'message' => '未登录',
             ]);
         }catch (UnauthorizedHttpException $exception){
-//            throw new UnauthorizedHttpException('jwt-auth', '未登录');
+            //throw new UnauthorizedHttpException('jwt-auth', '未登录');
             return response()->json([
                 'code' => 4012,
                 'data' => [],
@@ -46,7 +46,7 @@ class Interceptor extends BaseMiddleware
         }catch(TokenBlacklistedException $exception){
 
             //当用户退出之后，token就会被拉黑，就会返回TokenBlacklistedException
-//            throw new UnauthorizedHttpException('jwt-auth', '未登录');
+            //throw new UnauthorizedHttpException('jwt-auth', '未登录');
             return response()->json([
                 'code' => 4013,
                 'data' => [],
@@ -69,7 +69,7 @@ class Interceptor extends BaseMiddleware
                 return $this->setAuthenticationHeader($next($request), $token);
             } catch (JWTException $exception) {
                 // 如果捕获到此异常，即代表 refresh 也过期了，用户无法刷新令牌，需要重新登录。
-//                throw new UnauthorizedHttpException('jwt-auth', $exception->getMessage());
+            //    throw new UnauthorizedHttpException('jwt-auth', $exception->getMessage());
                 return response()->json([
                     'code' => 4014,
                     'data' => [],

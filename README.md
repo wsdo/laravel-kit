@@ -10,6 +10,10 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 ```
 
+## 环境设置
+```
+cp .env.example .env
+```
 ## 安装依赖包
 ```
 composer install
