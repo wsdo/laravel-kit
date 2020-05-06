@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use App\Common\ErrorCode as ErrorCode;
 
 class Interceptor extends BaseMiddleware
 {
@@ -20,7 +21,6 @@ class Interceptor extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-
 //        return $next($request);
         // 使用 try 包裹，以捕捉 token 过期所抛出的 TokenExpiredException  异常
         try {
@@ -32,14 +32,14 @@ class Interceptor extends BaseMiddleware
             }
             //throw new UnauthorizedHttpException('jwt-auth', '未登录');
             return response()->json([
-                'code' => 4011,
+                'code' => ErrorCode::NOT_PASS,
                 'data' => [],
-                'message' => '未登录',
+                'message' => '登录token未通过验证',
             ]);
         }catch (UnauthorizedHttpException $exception){
             //throw new UnauthorizedHttpException('jwt-auth', '未登录');
             return response()->json([
-                'code' => 4012,
+                'code' => ErrorCode::GUEST,
                 'data' => [],
                 'message' => '未登录',
             ]);
@@ -48,13 +48,13 @@ class Interceptor extends BaseMiddleware
             //当用户退出之后，token就会被拉黑，就会返回TokenBlacklistedException
             //throw new UnauthorizedHttpException('jwt-auth', '未登录');
             return response()->json([
-                'code' => 4013,
+                'code' => ErrorCode::BLACK_TOKEN,
                 'data' => [],
-                'message' => '未登录',
+                'message' => 'token处于黑名单',
             ]);
         }catch(TokenInvalidException $exception){
             return response()->json([
-                    'code' => 4015,
+                    'code' => ErrorCode::EXPIRE_TOKEN,
                     'data' => [],
                     'message' => '登陆已过期,重新登陆',
                 ]);
@@ -71,7 +71,7 @@ class Interceptor extends BaseMiddleware
                 // 如果捕获到此异常，即代表 refresh 也过期了，用户无法刷新令牌，需要重新登录。
             //    throw new UnauthorizedHttpException('jwt-auth', $exception->getMessage());
                 return response()->json([
-                    'code' => 4014,
+                    'code' => ErrorCode::EXPIE_REFRESH_TOEKN,
                     'data' => [],
                     'message' => $exception->getMessage(),
                 ]);

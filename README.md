@@ -22,4 +22,8 @@ composer install
 ## 开发
 ```
 php artisan serve
+```  
+## 生产环境
+```
+修改run.sh dns 解析成prod 数据库地址
 ```
