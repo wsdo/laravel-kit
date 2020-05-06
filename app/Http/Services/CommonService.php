@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Service;
+namespace App\Http\Services;
 
 use App\Http\Model\Account as Account;
 use App\Http\Model\Users;
@@ -9,25 +9,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client;
 use Mockery\Exception;
-
+use App\Common\ErrorCode as ErrorCode;
 
 class CommonService {
     public $client;
-    public function success($msg='ok'){
-        return [
-            'code'=>200,
-            'msg'=>'请求成功',
-            'data'=>$msg
-        ];
-    }
-
-    public function error($msg='fail'){
-        return [
-            'code'=>400,
-            'msg'=>'业务异常',
-            'data'=>$msg
-        ];
-    }
 
     protected function createHttp(){
         if(!$this->client instanceof Client){
@@ -43,7 +28,7 @@ class CommonService {
      */
     public function curlPost($url,$data){
         if(!$url){
-            return $this->error('连接格式不正确');
+            return $this->error('连接格式不正确',ErrorCode::INVALID_DATA);
         }
         $resp = $this->HttpRequest('post',$url,$data);
         return \GuzzleHttp\json_decode($resp->getBody()->__toString(), true);
@@ -55,7 +40,7 @@ class CommonService {
      */
     public function curlGet($url){
         if(!$url){
-            return $this->error('连接格式不正确');
+            return $this->error('连接格式不正确',ErrorCode::INVALID_DATA);
         }
         return $this->HttpRequest('get',$url);
     }
