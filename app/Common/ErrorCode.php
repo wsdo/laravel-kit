@@ -27,4 +27,6 @@ class ErrorCode{
   const EXPIRE_TOKEN = 40003;
   //refresh 过期
   const EXPIE_REFRESH_TOEKN = 40004;
+  //创建用户失败
+  const CREATE_USER_FAIL = 40005;
 }
