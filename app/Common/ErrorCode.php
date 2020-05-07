@@ -9,13 +9,13 @@ class ErrorCode{
   const INVALID_UPDATE_DATA = 10002;
   //创建数据不正确
   const INVALID_CREATE_DATA = 10003;
+  //找不到数据
+  const NO_DATA = 10004;
+
   //保存成功
   const SAVE_OK = 0;
   //保存失败
   const SAVE_ERROR = 20001;
-
-  //找不到数据
-  const NO_DATA = 30001;
 
   //登录未通过验证
   const NOT_PASS = 40000;
