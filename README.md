@@ -27,3 +27,11 @@ php artisan serve
 ```
 修改run.sh dns 解析成prod 数据库地址
 ```
+
+## 集成
+
+* 路由组 V1
+* 配置
+* Docker
+* jwt token验证
+* 统一配置跨域：EnableCrossRequestMiddleware
